@@ -255,9 +255,15 @@ para ver motos detectadas em uma imagem como "reservado".
 Arquivos referentes a parte de Visão Computacional que não afetam a parte de IoT de nenhuma maneira:
 
 detectar_imagens.py;
+
 detectar_motos_2.py;
+
 detectar_motos_simples.py;
+
 patio.mp4;
+
 patio2.mp4;
+
 patioimg.jpg;
+
 yolov5s.pt.
