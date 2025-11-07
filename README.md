@@ -252,7 +252,7 @@ para ver motos detectadas em uma imagem como "reservado".
 
 > **🔴 Para encerrar o vídeo a qualquer momento, pressione a tecla Q.**
 
-Arquivos referentes a parte de Visão Computacional que não afetam a parte de IoT de nenhuma maneira:
+Arquivos referentes a parte de VISÃO COMPUTACIONAL que não afetam a parte de IOT de nenhuma maneira:
 
 detectar_imagens.py;
 
