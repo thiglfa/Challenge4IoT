@@ -30,7 +30,7 @@ Bruno centurion Fernandes - RM556531
 ```plaintext
 [Dispositivos IoT (ESP32/Arduino)]
           |
-       MQTT (HiveMQ)
+       MQTT (Mosquitto MQTT)
           |
       [Node-RED Gateway]
           |
@@ -42,7 +42,7 @@ Bruno centurion Fernandes - RM556531
   - `iotfrontier/temperature`
   - `iotfrontier/humidity`
   - `iotfrontier/rain`
-- O Node-RED se conecta ao broker MQTT, processa os dados, verifica condições de alerta e os exibe no dashboard.
+- O Node-RED se conecta ao Mosquitto, processa os dados, verifica condições de alerta e os exibe no dashboard.
 
 ---
 
@@ -53,7 +53,7 @@ Bruno centurion Fernandes - RM556531
 - Node.js instalado
 - Node-RED instalado globalmente (`npm install -g node-red`)
 - Navegador web (recomendado: Chrome ou Firefox)
-- Conexão com broker MQTT (utiliza-se o broker público HiveMQ)
+- Conexão com Mosquitto MQTT (utiliza-se o broker público test.mosquitto.org).
 
 ### 2. Instalar e Iniciar o Node-RED
 
@@ -136,9 +136,9 @@ return { payload: alert };
 
 ```bash
 # Exemplo usando MQTT CLI
-mqtt pub -t iotfrontier/temperature -h broker.hivemq.com -m "31"
-mqtt pub -t iotfrontier/humidity -h broker.hivemq.com -m "75"
-mqtt pub -t iotfrontier/rain -h broker.hivemq.com -m "1400"
+mqtt pub -t iotfrontier/temperature -h test.mosquitto.org -m "31"
+mqtt pub -t iotfrontier/humidity -h test.mosquitto.org -m "75"
+mqtt pub -t iotfrontier/rain -h test.mosquitto.org -m "1400"
 ```
 
 ---
