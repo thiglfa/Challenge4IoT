@@ -66,7 +66,7 @@ Abra o navegador e acesse: [http://localhost:1880](http://localhost:1880)
 ### 3. Importar o Fluxo
 
 - Clique no menu (☰) > "Import"
-- Cole o conteúdo do fluxo JSON (ver seção abaixo)
+- Cole o conteúdo do fluxo flows.JSON (ver seção abaixo)
 - Clique em "Deploy"
 
 ### 4. Acessar o Dashboard
@@ -145,8 +145,10 @@ mqtt pub -t iotfrontier/rain -h test.mosquitto.org -m "1400"
 
 ## 📁 Código-Fonte
 
-- O fluxo principal está no arquivo `node-red-flow.json`
+- O fluxo principal está no arquivo `node-red-flows.json`
 - O código dos dispositivos IoT se encontra no arquivo sketch.ino
+- O diagrama dos dispositivos IoT se encontra no arquivo diagram.json
+- As bibliotecas usadas no projeto se encontram no arquivo libraries.txt
 - Todos os recursos visuais estão embutidos nos nós `ui_template`
 - O projeto não depende de bibliotecas externas no lado do servidor
 
