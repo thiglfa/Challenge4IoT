@@ -1,6 +1,6 @@
 [
     {
-        "id": "3277f24c435e3a3e",
+        "id": "f960d075ceb8a01b",
         "type": "tab",
         "label": "Flow 4",
         "disabled": false,
@@ -196,9 +196,9 @@
         "collapse": false
     },
     {
-        "id": "d63dfd0bd30d5ce9",
+        "id": "45988ce9689b191a",
         "type": "mqtt in",
-        "z": "3277f24c435e3a3e",
+        "z": "f960d075ceb8a01b",
         "name": "Temp",
         "topic": "iotfrontier/temperature",
         "qos": "2",
@@ -207,20 +207,20 @@
         "nl": false,
         "rap": false,
         "inputs": 0,
-        "x": 190,
-        "y": 260,
+        "x": 140,
+        "y": 100,
         "wires": [
             [
-                "60aa81deb2b825d6",
-                "9b986d9924a06504",
-                "d8998aca5b8a30fa"
+                "7a81a070d6f9edbe",
+                "237fab09d780cd46",
+                "ec8af6f20f27b2ea"
             ]
         ]
     },
     {
-        "id": "ce5b3551befee4a1",
+        "id": "1034b194895ed7d3",
         "type": "mqtt in",
-        "z": "3277f24c435e3a3e",
+        "z": "f960d075ceb8a01b",
         "name": "Umidade",
         "topic": "iotfrontier/humidity",
         "qos": "2",
@@ -229,20 +229,20 @@
         "nl": false,
         "rap": false,
         "inputs": 0,
-        "x": 190,
-        "y": 320,
+        "x": 140,
+        "y": 160,
         "wires": [
             [
-                "60aa81deb2b825d6",
-                "d2c7976c0a9ec3d5",
-                "5fe9f23de58f200b"
+                "7a81a070d6f9edbe",
+                "64d2ea5d4d5d48df",
+                "d77c5cc6bce21844"
             ]
         ]
     },
     {
-        "id": "7a41aa1167c72960",
+        "id": "9433a1c5eee70ef2",
         "type": "mqtt in",
-        "z": "3277f24c435e3a3e",
+        "z": "f960d075ceb8a01b",
         "name": "Chuva",
         "topic": "iotfrontier/rain",
         "qos": "2",
@@ -251,19 +251,19 @@
         "nl": false,
         "rap": false,
         "inputs": 0,
-        "x": 190,
-        "y": 380,
+        "x": 140,
+        "y": 220,
         "wires": [
             [
-                "60aa81deb2b825d6",
-                "992428b61b4fd811"
+                "7a81a070d6f9edbe",
+                "5f4ab18f198a7378"
             ]
         ]
     },
     {
-        "id": "60aa81deb2b825d6",
+        "id": "7a81a070d6f9edbe",
         "type": "function",
-        "z": "3277f24c435e3a3e",
+        "z": "f960d075ceb8a01b",
         "name": "Verifica Alertas",
         "func": "const val = parseFloat(msg.payload);\nconst topic = msg.topic;\n\nlet state = context.get(\"alert\") || {\n    led_temp: false,\n    led_humid: false,\n    led_rain: false,\n    sound: false\n};\n\nstate.sound = false; // resetar som por padrão\n\nif (topic.includes(\"temperature\")) {\n    state.led_temp = val > 30;\n    if (val > 30) state.sound = true;\n}\n\nif (topic.includes(\"humidity\")) {\n    state.led_humid = val > 70;\n}\n\nif (topic.includes(\"rain\")) {\n    state.led_rain = val < 1500;\n    if (val < 1500) state.sound = true;\n}\n\ncontext.set(\"alert\", state);\nreturn { payload: state };\n",
         "outputs": 1,
@@ -272,19 +272,19 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 400,
-        "y": 320,
+        "x": 350,
+        "y": 160,
         "wires": [
             [
-                "f1801386ea83e09f",
-                "9ac246fde969249e"
+                "72bbc16da3e11ecc",
+                "265521df48170421"
             ]
         ]
     },
     {
-        "id": "f1801386ea83e09f",
+        "id": "72bbc16da3e11ecc",
         "type": "ui_template",
-        "z": "3277f24c435e3a3e",
+        "z": "f960d075ceb8a01b",
         "group": "9e52782d5f815611",
         "name": "LEDs",
         "order": 4,
@@ -294,35 +294,37 @@
         "storeOutMessages": true,
         "fwdInMessages": true,
         "resendOnRefresh": true,
-        "x": 600,
-        "y": 300,
+        "x": 550,
+        "y": 140,
         "wires": [
             []
         ]
     },
     {
-        "id": "9ac246fde969249e",
+        "id": "265521df48170421",
         "type": "ui_template",
-        "z": "3277f24c435e3a3e",
+        "z": "f960d075ceb8a01b",
         "group": "9e52782d5f815611",
         "name": "Som de Alerta",
         "order": 5,
         "width": 0,
         "height": 0,
-        "format": "<audio id=\"alerta\" src=\"https://actions.google.com/sounds/v1/alarms/beep_short.ogg\"></audio>\n<script>\n(function(scope) {\n    scope.$watch('msg.payload', function(data) {\n        if (data && data.sound) {\n            document.getElementById('alerta').play();\n        }\n    });\n})(scope);\n</script>",
+        "format": "<audio id=\"alerta\" src=\"https://actions.google.com/sounds/v1/alarms/beep_short.ogg\"></audio>\n<button onclick=\"document.getElementById('alerta').play()\">🔊 Ativar som</button>\n<script>\n    (function(scope) {\n    scope.$watch('msg.payload', function(data) {\n        if (data && data.sound) {\n            const audio = document.getElementById('alerta');\n            audio.currentTime = 0;\n            audio.play();\n        }\n    });\n})(scope);\n</script>",
         "storeOutMessages": true,
         "fwdInMessages": true,
         "resendOnRefresh": true,
-        "x": 600,
-        "y": 340,
+        "templateScope": "local",
+        "className": "",
+        "x": 550,
+        "y": 180,
         "wires": [
             []
         ]
     },
     {
-        "id": "9b986d9924a06504",
+        "id": "237fab09d780cd46",
         "type": "ui_gauge",
-        "z": "3277f24c435e3a3e",
+        "z": "f960d075ceb8a01b",
         "name": "Gauge Temp",
         "group": "9e52782d5f815611",
         "order": 1,
@@ -343,14 +345,14 @@
         "seg2": "",
         "diff": false,
         "className": "",
-        "x": 400,
-        "y": 260,
+        "x": 350,
+        "y": 100,
         "wires": []
     },
     {
-        "id": "d2c7976c0a9ec3d5",
+        "id": "64d2ea5d4d5d48df",
         "type": "ui_gauge",
-        "z": "3277f24c435e3a3e",
+        "z": "f960d075ceb8a01b",
         "name": "Gauge Umidade",
         "group": "9e52782d5f815611",
         "order": 2,
@@ -367,14 +369,14 @@
             "#00b500",
             "#ff8000"
         ],
-        "x": 400,
-        "y": 360,
+        "x": 350,
+        "y": 200,
         "wires": []
     },
     {
-        "id": "d8998aca5b8a30fa",
+        "id": "ec8af6f20f27b2ea",
         "type": "ui_chart",
-        "z": "3277f24c435e3a3e",
+        "z": "f960d075ceb8a01b",
         "name": "Gráfico Temp",
         "group": "9e52782d5f815611",
         "order": 6,
@@ -397,16 +399,16 @@
             "#FF0000"
         ],
         "outputs": 1,
-        "x": 610,
-        "y": 400,
+        "x": 560,
+        "y": 240,
         "wires": [
             []
         ]
     },
     {
-        "id": "5fe9f23de58f200b",
+        "id": "d77c5cc6bce21844",
         "type": "ui_chart",
-        "z": "3277f24c435e3a3e",
+        "z": "f960d075ceb8a01b",
         "name": "Gráfico Umidade",
         "group": "9e52782d5f815611",
         "order": 7,
@@ -429,16 +431,16 @@
             "#0000FF"
         ],
         "outputs": 1,
-        "x": 610,
-        "y": 440,
+        "x": 560,
+        "y": 280,
         "wires": [
             []
         ]
     },
     {
-        "id": "992428b61b4fd811",
+        "id": "5f4ab18f198a7378",
         "type": "ui_chart",
-        "z": "3277f24c435e3a3e",
+        "z": "f960d075ceb8a01b",
         "name": "Gráfico Chuva",
         "group": "9e52782d5f815611",
         "order": 8,
@@ -461,14 +463,14 @@
             "#00aaff"
         ],
         "outputs": 1,
-        "x": 610,
-        "y": 480,
+        "x": 560,
+        "y": 320,
         "wires": [
             []
         ]
     },
     {
-        "id": "56b045d8adb9ab3f",
+        "id": "2dcdc95e3cdcd0e2",
         "type": "global-config",
         "env": [],
         "modules": {
