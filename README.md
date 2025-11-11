@@ -216,7 +216,7 @@ Antes de executar o projeto, você precisa ter:
 ### 1. **Clone o repositório (ou salve o arquivo `.py`):**
 
 ```bash
-git clone https://github.com/edu1805/CP05-IoT.git
+git clone [https://github.com/thiglfa/Challenge4IoT.git]
 cd seu-repositorio
 ```
 ### 2. **Instale as dependências:**
